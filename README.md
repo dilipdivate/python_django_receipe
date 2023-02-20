@@ -26,3 +26,5 @@ docker-compose run --rm app sh -c "python manage.py wait_for_db"
 <!-- To run core app -->
 
 docker-compose run --rm app sh -c "python manage.py startapp core"
+
+docker-compose run --rm app sh -c "python manage.py makemigrations"
