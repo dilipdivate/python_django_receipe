@@ -1,5 +1,5 @@
 # Pull base image
-FROM python:3.10-slim-buster
+FROM python:3.9-alpine
 LABEL maintainer="pythonuser"
 
 # Set environment variables
@@ -18,16 +18,20 @@ EXPOSE 8000
 ARG DEV=false
 RUN python -m venv /py && \
     pip install --upgrade pip && \
+    apk add --update --no-cache postgresql-client && \
+    apk add --update --no-cache --virtual .tmp-buid-dev \
+        build-base postgresql-dev musl-dev && \    
     pip install -r /tmp/requirements.txt && \
     if [$DEV = "true"]; \
         then pip install -r /tmp/requirements.dev.txt ; \
     fi && \ 
     rm -rf /tmp && \
+    apk del .tmp-build-deps && \
     adduser \
         --disabled-password \
         --no-create-home \
         django-user
 
-ENV PATH="$PATH"
+ENV PATH="/usr/local/bin:$PATH"
 
 USER django-user
