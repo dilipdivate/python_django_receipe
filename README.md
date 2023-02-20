@@ -5,3 +5,15 @@ git commit -m "first commit"
 git branch -M main
 git remote add origin https://github.com/dilipdivate/python_django_receipe.git
 git push -u origin main
+
+Create Docker secret token and store in GITHUB secret
+
+Create requirements.txt and dev file
+
+run -- docker build .
+run -- docker-compose build
+docker-compose run --rm app sh -c "flake8"
+docker-compose run --rm app sh -c "django-admin startproject app ."
+docker-compose up
+
+Open http://127.0.0.1:8000/ in browser
